@@ -19,6 +19,9 @@ const (
 	bigQueryDatasetNameKey = "BIG_QUERY_DATASET_NAME"
 	issuesTableKey         = "ISSUES_TABLE"
 	pullRequestsTableKey   = "PULL_REQUESTS_TABLE"
+	releasesTableKey       = "RELEASES_TABLE"
+	moduleNameKey          = "MODULE_NAME"
+	moduleOwnerKey         = "MODULE_OWNER"
 )
 
 var Config configuration
@@ -29,18 +32,25 @@ type configuration struct {
 	BigQueryDatasetName string `mapstructure:"big_query_dataset_name"`
 	IssuesTable         string `mapstructure:"issues_table"`
 	PullRequestsTable   string `mapstructure:"pull_requests_table"`
+	ReleasesTable       string `mapstructure:"releases_table"`
+	ModuleName          string `mapstructure:"module_name"`
+	ModuleOwner         string `mapstructure:"module_owner"`
 }
 
 func InitConfig() error {
 	viper.SetDefault(bigQueryDatasetNameKey, "github_metrics")
 	viper.SetDefault(issuesTableKey, "issues")
 	viper.SetDefault(pullRequestsTableKey, "pull_requests")
+	viper.SetDefault(releasesTableKey, "releases")
 
 	_ = viper.BindEnv(githubTokenKey)
 	_ = viper.BindEnv(bigQueryProjectIDKey)
 	_ = viper.BindEnv(bigQueryDatasetNameKey)
 	_ = viper.BindEnv(issuesTableKey)
 	_ = viper.BindEnv(pullRequestsTableKey)
+	_ = viper.BindEnv(releasesTableKey)
+	_ = viper.BindEnv(moduleNameKey)
+	_ = viper.BindEnv(moduleOwnerKey)
 
 	err := viper.Unmarshal(&Config)
 	if err != nil {
@@ -71,6 +81,14 @@ func validate(config configuration) error {
 
 	if config.PullRequestsTable == "" {
 		missingConfig = append(missingConfig, pullRequestsTableKey)
+	}
+
+	if config.ModuleName == "" {
+		missingConfig = append(missingConfig, moduleNameKey)
+	}
+
+	if config.ModuleOwner == "" {
+		missingConfig = append(missingConfig, moduleOwnerKey)
 	}
 
 	if len(missingConfig) > 0 {
