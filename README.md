@@ -1,4 +1,4 @@
-# puppet-github-metrics
+# cat-team-github-metrics
 
 This project is responsible for collecting various metrics from GitHubs API and injecting them in to BigQuery.
 
@@ -32,10 +32,10 @@ make build-all
 
 docker run \
   -e GITHUB_TOKEN=$GITHUB_TOKEN \
-  -e BIG_QUERY_PROJECT_ID=$BIG_QUERY_PROJECT_ID \ 
+  -e BIG_QUERY_PROJECT_ID=$BIG_QUERY_PROJECT_ID \
   -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/creds.json \
   -v ~/.config/gcloud/application_default_credentials.json:/tmp/keys/creds.json \
-  chelnak/puppet-github-metrics
+  chelnak/cat-team-github-metrics
 ```
 
 ### Local Grafana stack

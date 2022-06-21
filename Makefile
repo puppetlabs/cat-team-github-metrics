@@ -10,4 +10,4 @@ build:
 
 build-all: lint
 	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist
-	@docker build -t chelnak/puppet-github-metrics .
+	@docker build -t chelnak/cat-team-github-metrics .

@@ -1,10 +1,9 @@
-module github.com/chelnak/puppet-github-metrics
+module github.com/chelnak/cat-team-github-metrics
 
 go 1.18
 
 require (
 	cloud.google.com/go/bigquery v1.32.0
-	github.com/chelnak/collar v0.0.0-20220529203555-7f0dc2e7a744
 	github.com/rs/zerolog v1.26.1
 	github.com/shurcooL/githubv4 v0.0.0-20220520033151-0b4e3294ff00
 	github.com/spf13/viper v1.12.0

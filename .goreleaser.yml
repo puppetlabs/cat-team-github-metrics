@@ -1,7 +1,7 @@
-project_name: puppet-github-metrics
+project_name: collector
 
 release:
-  name_template: "puppet-github-metrics {{.Version}}"
+  name_template: "cat-github-metric-collector {{.Version}}"
   prerelease: auto
 
 before:
@@ -10,7 +10,7 @@ before:
     - go fmt ./...
 
 builds:
-  - id: puppet-github-metrics
+  - id: collector
     binary: "{{ tolower .Os }}-{{ .Arch }}/{{ .ProjectName }}"
     env:
       - CGO_ENABLED=0
@@ -25,7 +25,6 @@ builds:
       - all=-trimpath={{.Env.WORKINGDIR}}
     mod_timestamp: '{{ .CommitTimestamp }}'
     no_unique_dist_dir: true
-
 
 archives:
   - format: binary
