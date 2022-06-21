@@ -14,6 +14,7 @@ import (
 type GitHubClient interface {
 	GetIssues(ctx context.Context, owner string, repo string) ([]Issue, error)
 	GetPullRequests(ctx context.Context, owner string, repo string) ([]PullRequest, error)
+	GetLatestRelease(ctx context.Context, owner string, repo string) ([]Release, error)
 }
 
 type githubClient struct {
