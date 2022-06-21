@@ -27,6 +27,9 @@ func main() {
 
 	config := configuration.Config
 
+	moduleName := config.ModuleName
+	moduleOwner := config.ModuleOwner
+
 	log.Info().Msg("Initializing BigQuery client")
 	ctx := context.Background()
 	bq, err = bigqueryclient.NewBigQueryClient(ctx, config.BigQueryProjectID, config.BigQueryDatasetName)
@@ -35,50 +38,51 @@ func main() {
 		os.Exit(1)
 	}
 
-	log.Info().Msg("fetching supported modules")
-	modulesClient := modules.NewModuleClient(nil, "")
-	suppportedModules, err := modulesClient.GetSupportedModules(ctx)
+	var hasErrors bool
+
+	log.Info().Msg("starting to collect metrics")
+	log.Info().Msgf("%s: fetching issue metrics", moduleName)
+
+	issues, err := metrics.GetIssueMetrics(moduleOwner, moduleName)
 	if err != nil {
-		log.Fatal().Err(err).Msg("failed to get supported modules")
-		os.Exit(1)
+		log.Error().Err(err).Msgf("%s: failed to fetch issue metrics", moduleName)
+		hasErrors = true
 	}
 
-	log.Info().Msgf("there are %d modules to process", len(*suppportedModules))
+	log.Info().Msgf("%s: uploading %d issue metrics", moduleName, len(issues))
+	err = bq.Insert(config.IssuesTable, issues)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to insert issue metrics", moduleName)
+		hasErrors = true
+	}
 
-	var hasErrors bool
-	log.Info().Msg("starting to collect metrics")
-	for _, module := range *suppportedModules {
-		log.Info().Msgf("%s: fetching issue metrics", module.Name)
-		issues, err := metrics.GetIssueMetrics(module.Owner, module.Name)
-		if err != nil {
-			log.Error().Err(err).Msgf("%s: failed to fetch issue metrics", module.Name)
-			hasErrors = true
-			continue
-		}
+	log.Info().Msgf("%s: fetching pull request metrics", moduleName)
+	pullRequests, err := metrics.GetPullRequestMetrics(moduleOwner, moduleName)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to fetch pull request metrics", moduleName)
+		hasErrors = true
+	}
 
-		log.Info().Msgf("%s: uploading %d issue(s) metrics", module.Name, len(issues))
-		err = bq.Insert(config.IssuesTable, issues)
-		if err != nil {
-			log.Error().Err(err).Msgf("%s: failed to insert issue metrics", module.Name)
-			hasErrors = true
-			continue
-		}
+	log.Info().Msgf("%s: uploading %d pull request metrics", moduleName, len(pullRequests))
+	err = bq.Insert(config.PullRequestsTable, pullRequests)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to insert pull request metrics", moduleName)
+		hasErrors = true
+	}
 
-		log.Info().Msgf("%s: fetching pull request metrics", module.Name)
-		pullRequests, err := metrics.GetPullRequestMetrics(module.Owner, module.Name)
-		if err != nil {
-			log.Error().Err(err).Msgf("%s: failed to fetch pull request metrics", module.Name)
-			hasErrors = true
-			continue
-		}
+	log.Info().Msgf("%s: fetching release metrics", moduleName)
 
-		log.Info().Msgf("%s: uploading %d pull request(s) metrics", module.Name, len(pullRequests))
-		err = bq.Insert(config.PullRequestsTable, pullRequests)
-		if err != nil {
-			log.Error().Err(err).Msgf("%s: failed to insert pull request metrics", module.Name)
-			hasErrors = true
-			continue
-		}
+	releases, err := metrics.GetReleaseMetrics(moduleOwner, moduleName)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to fetch release metrics", moduleName)
+		hasErrors = true
+	}
+
+	log.Info().Msgf("%s: uploading %d release metrics", moduleName, len(releases))
+	err = bq.Insert(config.ReleasesTable, releases)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to insert release metrics", moduleName)
+		hasErrors = true
 	}
 
 	if hasErrors {
@@ -88,19 +92,3 @@ func main() {
 		log.Info().Msg("successfully processed metrics")
 	}
 }
-
-// func setup() {
-// 	var err error
-//
-// 	fmt.Println("Creating issues table")
-// 	err = bq.CreateTable(issuesTable, metrics.IssueMetric{})
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-//
-// 	fmt.Println("Creating pull requests table")
-// 	err = bq.CreateTable(pullRequestsTable, metrics.PullRequestMetric{})
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// }

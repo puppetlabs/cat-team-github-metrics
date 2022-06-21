@@ -1,4 +1,5 @@
-from golang:1.18-alpine
+
+FROM relaysh/core:latest
 
 WORKDIR /app
 
