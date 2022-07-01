@@ -5,9 +5,8 @@ tag:
 lint:
 	@golangci-lint run
 
-build:
-	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist --single-target
-
-build-all: lint
+build: lint
 	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist
-	@docker build -t chelnak/cat-team-github-metrics .
+
+release: lint
+	@WORKINGDIR=$(pwd) goreleaser release --snapshot --rm-dist

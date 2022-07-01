@@ -1,4 +1,4 @@
-project_name: collector
+project_name: cat-github-metric-collector
 
 release:
   name_template: "cat-github-metric-collector {{.Version}}"
@@ -10,13 +10,11 @@ before:
     - go fmt ./...
 
 builds:
-  - id: collector
-    binary: "{{ tolower .Os }}-{{ .Arch }}/{{ .ProjectName }}"
+  - binary: "{{ tolower .Os }}-{{ .Arch }}/collector"
     env:
       - CGO_ENABLED=0
     goos:
       - linux
-      - darwin
     goarch:
       - amd64
     asmflags:
@@ -26,16 +24,15 @@ builds:
     mod_timestamp: '{{ .CommitTimestamp }}'
     no_unique_dist_dir: true
 
-archives:
-  - format: binary
-    name_template: "{{ tolower .Os }}-{{ .Arch }}"
-    allow_different_binary_count: true
+dockers:
+  - image_templates:
+    - "ghcr.io/chelnak/{{ .ProjectName }}:latest"
+    - "ghcr.io/chelnak/{{ .ProjectName }}:{{ .Tag }}"
+    extra_files:
+      - step.sh
 
 checksum:
   name_template: 'checksums.txt'
-
-snapshot:
-  name_template: "{{ .Tag }}-{{.ShortCommit}}"
 
 changelog:
   sort: asc
