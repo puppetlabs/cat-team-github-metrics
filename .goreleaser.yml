@@ -1,0 +1,42 @@
+project_name: cat-github-metric-collector
+
+release:
+  name_template: "cat-github-metric-collector {{.Version}}"
+  prerelease: auto
+
+before:
+  hooks:
+    - go mod tidy
+    - go fmt ./...
+
+builds:
+  - binary: "{{ tolower .Os }}-{{ .Arch }}/collector"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+    asmflags:
+      - all=-trimpath={{.Env.WORKINGDIR}}
+    gcflags:
+      - all=-trimpath={{.Env.WORKINGDIR}}
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    no_unique_dist_dir: true
+
+dockers:
+  - image_templates:
+    - "ghcr.io/chelnak/{{ .ProjectName }}:latest"
+    - "ghcr.io/chelnak/{{ .ProjectName }}:{{ .Tag }}"
+    extra_files:
+      - step.sh
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
