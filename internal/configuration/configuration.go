@@ -14,14 +14,14 @@ import (
 )
 
 const (
-	githubTokenKey         = "GITHUB_TOKEN"
+	githubTokenKey         = "GITHUB_TOKEN" //nolint:gosec
 	bigQueryProjectIDKey   = "BIG_QUERY_PROJECT_ID"
 	bigQueryDatasetNameKey = "BIG_QUERY_DATASET_NAME"
 	issuesTableKey         = "ISSUES_TABLE"
 	pullRequestsTableKey   = "PULL_REQUESTS_TABLE"
 	releasesTableKey       = "RELEASES_TABLE"
-	moduleNameKey          = "MODULE_NAME"
-	moduleOwnerKey         = "MODULE_OWNER"
+	repoNameKey            = "REPO_NAME"
+	repoOwnerKey           = "REPO_OWNER"
 )
 
 var Config configuration
@@ -33,8 +33,8 @@ type configuration struct {
 	IssuesTable         string `mapstructure:"issues_table"`
 	PullRequestsTable   string `mapstructure:"pull_requests_table"`
 	ReleasesTable       string `mapstructure:"releases_table"`
-	ModuleName          string `mapstructure:"module_name"`
-	ModuleOwner         string `mapstructure:"module_owner"`
+	RepoName            string `mapstructure:"repo_name"`
+	RepoOwner           string `mapstructure:"repo_owner"`
 }
 
 func InitConfig() error {
@@ -49,8 +49,8 @@ func InitConfig() error {
 	_ = viper.BindEnv(issuesTableKey)
 	_ = viper.BindEnv(pullRequestsTableKey)
 	_ = viper.BindEnv(releasesTableKey)
-	_ = viper.BindEnv(moduleNameKey)
-	_ = viper.BindEnv(moduleOwnerKey)
+	_ = viper.BindEnv(repoNameKey)
+	_ = viper.BindEnv(repoOwnerKey)
 
 	err := viper.Unmarshal(&Config)
 	if err != nil {
@@ -83,12 +83,12 @@ func validate(config configuration) error {
 		missingConfig = append(missingConfig, pullRequestsTableKey)
 	}
 
-	if config.ModuleName == "" {
-		missingConfig = append(missingConfig, moduleNameKey)
+	if config.RepoName == "" {
+		missingConfig = append(missingConfig, repoNameKey)
 	}
 
-	if config.ModuleOwner == "" {
-		missingConfig = append(missingConfig, moduleOwnerKey)
+	if config.RepoOwner == "" {
+		missingConfig = append(missingConfig, repoOwnerKey)
 	}
 
 	if len(missingConfig) > 0 {
