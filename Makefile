@@ -1,9 +1,9 @@
 tag:
-	@git tag $(version)
-	@git push origin $(version)
+	@git tag -a $(version) -m "Release $(version)"
+	@git push --follow-tags
 
 lint:
-	@golangci-lint run
+	@golangci-lint run ./...
 
 build: lint
 	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist
