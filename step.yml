@@ -28,14 +28,14 @@ schemas:
         type: string
         description: The GCP project id that contains the Big Query instance.
         writeOnly: true
-      module_owner:
+      repo_owner:
         type: string
         description: The owner of the GitHub repository (e.g. puppetlabs)
-      module_name:
+      repo_name:
         type: string
         description: The name of the GitHub repository (e.g. puppetlabs-docker)
     required:
       - github_token
       - big_query_project_id
-      - module_owner
-      - module_name
+      - repo_owner
+      - repo_name

@@ -27,8 +27,8 @@ func main() {
 
 	config := configuration.Config
 
-	moduleName := config.ModuleName
-	moduleOwner := config.ModuleOwner
+	repoName := config.RepoName
+	repoOwner := config.RepoOwner
 
 	log.Info().Msg("Initializing BigQuery client")
 	ctx := context.Background()
@@ -41,47 +41,47 @@ func main() {
 	var hasErrors bool
 
 	log.Info().Msg("starting to collect metrics")
-	log.Info().Msgf("%s: fetching issue metrics", moduleName)
+	log.Info().Msgf("%s: fetching issue metrics", repoName)
 
-	issues, err := metrics.GetIssueMetrics(moduleOwner, moduleName)
+	issues, err := metrics.GetIssueMetrics(repoOwner, repoName)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to fetch issue metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to fetch issue metrics", repoName)
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: uploading %d issue metrics", moduleName, len(issues))
+	log.Info().Msgf("%s: uploading %d issue metrics", repoName, len(issues))
 	err = bq.Insert(config.IssuesTable, issues)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to insert issue metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to insert issue metrics", repoName)
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: fetching pull request metrics", moduleName)
-	pullRequests, err := metrics.GetPullRequestMetrics(moduleOwner, moduleName)
+	log.Info().Msgf("%s: fetching pull request metrics", repoName)
+	pullRequests, err := metrics.GetPullRequestMetrics(repoOwner, repoName)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to fetch pull request metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to fetch pull request metrics", repoName)
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: uploading %d pull request metrics", moduleName, len(pullRequests))
+	log.Info().Msgf("%s: uploading %d pull request metrics", repoName, len(pullRequests))
 	err = bq.Insert(config.PullRequestsTable, pullRequests)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to insert pull request metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to insert pull request metrics", repoName)
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: fetching release metrics", moduleName)
+	log.Info().Msgf("%s: fetching release metrics", repoName)
 
-	releases, err := metrics.GetReleaseMetrics(moduleOwner, moduleName)
+	releases, err := metrics.GetReleaseMetrics(repoOwner, repoName)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to fetch release metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to fetch release metrics", repoName)
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: uploading %d release metrics", moduleName, len(releases))
+	log.Info().Msgf("%s: uploading %d release metrics", repoName, len(releases))
 	err = bq.Insert(config.ReleasesTable, releases)
 	if err != nil {
-		log.Error().Err(err).Msgf("%s: failed to insert release metrics", moduleName)
+		log.Error().Err(err).Msgf("%s: failed to insert release metrics", repoName)
 		hasErrors = true
 	}
 
