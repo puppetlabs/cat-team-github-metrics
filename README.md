@@ -27,11 +27,9 @@ publish your workflow to your Relay account.
 relay workflow save my-workflow -f workflow.yml
 ```
 
-For convenience, the steps above have been combined in to a `Make` target.
-
-```bash
-make workflow
-```
+The steps above are useful while developing a workflow. However, any changes to the files in
+the `workflow` directory will trigger the `publish-workflow` action and deploy your changes directly
+in to Relay.
 
 ## Build and release
 
