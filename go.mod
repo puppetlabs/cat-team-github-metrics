@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	cloud.google.com/go/bigquery v1.32.0
-	github.com/rs/zerolog v1.26.1
+	github.com/rs/zerolog v1.27.0
 	github.com/shurcooL/githubv4 v0.0.0-20220520033151-0b4e3294ff00
 	github.com/spf13/viper v1.12.0
 	golang.org/x/net v0.0.0-20220524220425-1d687d428aca
@@ -22,6 +22,8 @@ require (
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
