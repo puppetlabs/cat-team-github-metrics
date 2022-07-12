@@ -58,6 +58,20 @@ func Run() error {
 		hasErrors = true
 	}
 
+	log.Info().Msgf("%s: fetching issue aggregated metrics", repoName)
+	issueAggregatedMetrics, err := metrics.GetIssueAggregatedMetrics(repoOwner, repoName)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to fetch issue aggregated metrics", repoName)
+		hasErrors = true
+	}
+
+	log.Info().Msgf("%s: uploading issue aggregated metrics", repoName)
+	err = bq.Insert(config.IssuesAggTable, issueAggregatedMetrics)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to insert issue aggregated metrics", repoName)
+		hasErrors = true
+	}
+
 	log.Info().Msgf("%s: fetching pull request metrics", repoName)
 	pullRequests, err := metrics.GetPullRequestMetrics(repoOwner, repoName)
 	if err != nil {
@@ -72,8 +86,21 @@ func Run() error {
 		hasErrors = true
 	}
 
-	log.Info().Msgf("%s: fetching release metrics", repoName)
+	log.Info().Msgf("%s: fetching pull request aggregated metrics", repoName)
+	pullRequestAggregatedMetrics, err := metrics.GetPullRequestAggregatedMetrics(repoOwner, repoName)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to fetch pull request aggregated metrics", repoName)
+		hasErrors = true
+	}
 
+	log.Info().Msgf("%s: uploading pull request aggregated metrics", repoName)
+	err = bq.Insert(config.PullRequestsAggTable, pullRequestAggregatedMetrics)
+	if err != nil {
+		log.Error().Err(err).Msgf("%s: failed to insert pull request aggregated metrics", repoName)
+		hasErrors = true
+	}
+
+	log.Info().Msgf("%s: fetching release metrics", repoName)
 	releases, err := metrics.GetReleaseMetrics(repoOwner, repoName)
 	if err != nil {
 		log.Error().Err(err).Msgf("%s: failed to fetch release metrics", repoName)

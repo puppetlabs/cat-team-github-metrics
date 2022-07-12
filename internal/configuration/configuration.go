@@ -14,35 +14,41 @@ import (
 )
 
 const (
-	githubTokenKey         = "GITHUB_TOKEN" //nolint:gosec
-	bigQueryProjectIDKey   = "BIG_QUERY_PROJECT_ID"
-	bigQueryDatasetNameKey = "BIG_QUERY_DATASET_NAME"
-	issuesTableKey         = "ISSUES_TABLE"
-	pullRequestsTableKey   = "PULL_REQUESTS_TABLE"
-	releasesTableKey       = "RELEASES_TABLE"
-	lastRunTableKey        = "LAST_RUN_TABLE"
-	repoNameKey            = "REPO_NAME"
-	repoOwnerKey           = "REPO_OWNER"
+	githubTokenKey          = "GITHUB_TOKEN" //nolint:gosec
+	bigQueryProjectIDKey    = "BIG_QUERY_PROJECT_ID"
+	bigQueryDatasetNameKey  = "BIG_QUERY_DATASET_NAME"
+	issuesTableKey          = "ISSUES_TABLE"
+	issuesAggTableKey       = "ISSUES_AGG_TABLE"
+	pullRequestsTableKey    = "PULL_REQUESTS_TABLE"
+	pullRequestsAggTableKey = "PULL_REQUESTS_AGG_TABLE"
+	releasesTableKey        = "RELEASES_TABLE"
+	lastRunTableKey         = "LAST_RUN_TABLE"
+	repoNameKey             = "REPO_NAME"
+	repoOwnerKey            = "REPO_OWNER"
 )
 
 var Config configuration
 
 type configuration struct {
-	GitHubToken         string `mapstructure:"github_token"`
-	BigQueryProjectID   string `mapstructure:"big_query_project_id"`
-	BigQueryDatasetName string `mapstructure:"big_query_dataset_name"`
-	IssuesTable         string `mapstructure:"issues_table"`
-	PullRequestsTable   string `mapstructure:"pull_requests_table"`
-	ReleasesTable       string `mapstructure:"releases_table"`
-	LastRunTable        string `mapstructure:"last_run_table"`
-	RepoName            string `mapstructure:"repo_name"`
-	RepoOwner           string `mapstructure:"repo_owner"`
+	GitHubToken          string `mapstructure:"github_token"`
+	BigQueryProjectID    string `mapstructure:"big_query_project_id"`
+	BigQueryDatasetName  string `mapstructure:"big_query_dataset_name"`
+	IssuesTable          string `mapstructure:"issues_table"`
+	IssuesAggTable       string `mapstructure:"issues_agg_table"`
+	PullRequestsTable    string `mapstructure:"pull_requests_table"`
+	PullRequestsAggTable string `mapstructure:"pull_requests_agg_table"`
+	ReleasesTable        string `mapstructure:"releases_table"`
+	LastRunTable         string `mapstructure:"last_run_table"`
+	RepoName             string `mapstructure:"repo_name"`
+	RepoOwner            string `mapstructure:"repo_owner"`
 }
 
 func InitConfig() error {
 	viper.SetDefault(bigQueryDatasetNameKey, "github_metrics")
 	viper.SetDefault(issuesTableKey, "issues")
+	viper.SetDefault(issuesAggTableKey, "issues_agg")
 	viper.SetDefault(pullRequestsTableKey, "pull_requests")
+	viper.SetDefault(pullRequestsAggTableKey, "pull_requests_agg")
 	viper.SetDefault(releasesTableKey, "releases")
 	viper.SetDefault(lastRunTableKey, "last_run")
 
@@ -50,7 +56,9 @@ func InitConfig() error {
 	_ = viper.BindEnv(bigQueryProjectIDKey)
 	_ = viper.BindEnv(bigQueryDatasetNameKey)
 	_ = viper.BindEnv(issuesTableKey)
+	_ = viper.BindEnv(issuesAggTableKey)
 	_ = viper.BindEnv(pullRequestsTableKey)
+	_ = viper.BindEnv(pullRequestsAggTableKey)
 	_ = viper.BindEnv(releasesTableKey)
 	_ = viper.BindEnv(lastRunTableKey)
 	_ = viper.BindEnv(repoNameKey)
@@ -84,8 +92,16 @@ func validate(config configuration) error {
 		missingConfig = append(missingConfig, issuesTableKey)
 	}
 
+	if config.IssuesAggTable == "" {
+		missingConfig = append(missingConfig, issuesAggTableKey)
+	}
+
 	if config.PullRequestsTable == "" {
 		missingConfig = append(missingConfig, pullRequestsTableKey)
+	}
+
+	if config.PullRequestsAggTable == "" {
+		missingConfig = append(missingConfig, pullRequestsAggTableKey)
 	}
 
 	if config.ReleasesTable == "" {

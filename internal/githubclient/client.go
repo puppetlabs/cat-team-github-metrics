@@ -13,7 +13,9 @@ import (
 
 type GitHubClient interface {
 	GetIssues(ctx context.Context, owner string, repo string) ([]Issue, error)
+	GetOpenIssueCount(ctx context.Context, owner string, repo string) (IssueCount, error)
 	GetPullRequests(ctx context.Context, owner string, repo string) ([]PullRequest, error)
+	GetOpenPullRequestCount(ctx context.Context, owner string, repo string) (PullRequestCount, error)
 	GetLatestRelease(ctx context.Context, owner string, repo string) ([]Release, error)
 }
 
