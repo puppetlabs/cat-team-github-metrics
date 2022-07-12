@@ -1,6 +1,7 @@
 
 FROM relaysh/core:latest
 
+RUN apk update && apk add --no-cache -l pcre2
 WORKDIR /app
 
 COPY collector .
