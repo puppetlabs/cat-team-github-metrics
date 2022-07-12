@@ -8,8 +8,10 @@ lint:
 build: lint
 	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist
 
-release: lint
+snapshot:
 	@WORKINGDIR=$(pwd) goreleaser release --snapshot --rm-dist
+
+release: lint snapshot
 	@docker push ghcr.io/puppetlabs/cat-team-github-metrics:dev
 
 .PHONY: workflow

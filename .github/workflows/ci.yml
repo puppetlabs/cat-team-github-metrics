@@ -29,3 +29,10 @@ jobs:
       with:
         version: latest
 
+    - name: Snapshot release
+      run: make snapshot
+
+    - name: Trivy Scan
+      uses: docker://docker.io/aquasec/trivy:0.28.0
+      with:
+        args: 'i --vuln-type os --ignore-unfixed -s CRITICAL ghcr.io/puppetlabs/cat-team-github-metrics:latest'
