@@ -11,7 +11,7 @@ import (
 
 const (
 	moduleOwner  = "puppetlabs"
-	imageName    = "ghcr.io/puppet/cat-team-github-metrics:v0.1.0"
+	imageName    = "ghcr.io/puppet/cat-team-github-metrics:v0.1.1"
 	scheduleCron = "0 0 * * *"
 	scheduleType = "schedule"
 )
