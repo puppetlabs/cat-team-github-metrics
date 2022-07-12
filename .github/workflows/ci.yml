@@ -29,6 +29,13 @@ jobs:
       with:
         version: latest
 
+    - name: Set up Snyk
+      uses: snyk/actions/setup@master
+    - name: Run Snyk to check for vulnerabilities
+      run: snyk monitor
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_GENERAL_KEY }}
+
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v3
       with:
