@@ -1,4 +1,4 @@
-module github.com/chelnak/cat-team-github-metrics
+module github.com/puppetlabs/cat-team-github-metrics
 
 go 1.18
 

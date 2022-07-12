@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/bigquery"
-	"github.com/chelnak/cat-team-github-metrics/internal/githubclient"
+	"github.com/puppetlabs/cat-team-github-metrics/internal/githubclient"
 )
 
 // ReleaseMetric is a struct that implements the ValueSaver interface for saving to BigQuery

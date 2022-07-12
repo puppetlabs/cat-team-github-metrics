@@ -13,7 +13,7 @@ build:
   kind: Docker
 
 publish:
-  repository: chelnak/cat-team-github-metrics
+  repository: puppetlabs/cat-team-github-metrics
 
 schemas:
   spec:

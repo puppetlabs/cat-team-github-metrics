@@ -30,7 +30,7 @@ docker run \
   -e BIG_QUERY_PROJECT_ID=$BIG_QUERY_PROJECT_ID \
   -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/creds.json \
   -v ~/.config/gcloud/application_default_credentials.json:/tmp/keys/creds.json \
-  ghcr.io/chelnak/cat-team-github-metrics
+  ghcr.io/puppetlabs/cat-team-github-metrics
 ```
 
 ### Grafana

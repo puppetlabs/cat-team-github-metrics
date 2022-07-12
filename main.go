@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/chelnak/cat-team-github-metrics/internal/bigqueryclient"
-	"github.com/chelnak/cat-team-github-metrics/internal/configuration"
-	"github.com/chelnak/cat-team-github-metrics/internal/metrics"
+	"github.com/puppetlabs/cat-team-github-metrics/internal/bigqueryclient"
+	"github.com/puppetlabs/cat-team-github-metrics/internal/configuration"
+	"github.com/puppetlabs/cat-team-github-metrics/internal/metrics"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
