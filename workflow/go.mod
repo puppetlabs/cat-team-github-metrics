@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/chelnak/collar v0.0.0-20220529203555-7f0dc2e7a744
-	github.com/chelnak/relay-workflow-builder v0.0.0-20220702183134-15c1bce321ca
+	github.com/chelnak/relay-workflow-builder v0.0.0-20220712175429-f77f2668308d
 )
 
 require (

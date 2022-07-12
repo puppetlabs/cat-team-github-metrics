@@ -20,6 +20,7 @@ const (
 	issuesTableKey         = "ISSUES_TABLE"
 	pullRequestsTableKey   = "PULL_REQUESTS_TABLE"
 	releasesTableKey       = "RELEASES_TABLE"
+	lastRunTableKey        = "LAST_RUN_TABLE"
 	repoNameKey            = "REPO_NAME"
 	repoOwnerKey           = "REPO_OWNER"
 )
@@ -33,6 +34,7 @@ type configuration struct {
 	IssuesTable         string `mapstructure:"issues_table"`
 	PullRequestsTable   string `mapstructure:"pull_requests_table"`
 	ReleasesTable       string `mapstructure:"releases_table"`
+	LastRunTable        string `mapstructure:"last_run_table"`
 	RepoName            string `mapstructure:"repo_name"`
 	RepoOwner           string `mapstructure:"repo_owner"`
 }
@@ -42,6 +44,7 @@ func InitConfig() error {
 	viper.SetDefault(issuesTableKey, "issues")
 	viper.SetDefault(pullRequestsTableKey, "pull_requests")
 	viper.SetDefault(releasesTableKey, "releases")
+	viper.SetDefault(lastRunTableKey, "last_run")
 
 	_ = viper.BindEnv(githubTokenKey)
 	_ = viper.BindEnv(bigQueryProjectIDKey)
@@ -49,6 +52,7 @@ func InitConfig() error {
 	_ = viper.BindEnv(issuesTableKey)
 	_ = viper.BindEnv(pullRequestsTableKey)
 	_ = viper.BindEnv(releasesTableKey)
+	_ = viper.BindEnv(lastRunTableKey)
 	_ = viper.BindEnv(repoNameKey)
 	_ = viper.BindEnv(repoOwnerKey)
 
@@ -60,6 +64,7 @@ func InitConfig() error {
 	return validate(Config)
 }
 
+// Needs to be way better than this..
 func validate(config configuration) error {
 	var missingConfig []string
 
@@ -81,6 +86,14 @@ func validate(config configuration) error {
 
 	if config.PullRequestsTable == "" {
 		missingConfig = append(missingConfig, pullRequestsTableKey)
+	}
+
+	if config.ReleasesTable == "" {
+		missingConfig = append(missingConfig, releasesTableKey)
+	}
+
+	if config.LastRunTable == "" {
+		missingConfig = append(missingConfig, lastRunTableKey)
 	}
 
 	if config.RepoName == "" {
