@@ -2,6 +2,8 @@ github.com/chelnak/collar v0.0.0-20220529203555-7f0dc2e7a744 h1:F3XSWTEgTzSrl1Yw
 github.com/chelnak/collar v0.0.0-20220529203555-7f0dc2e7a744/go.mod h1:zVLVDVhTzjTjz1ywY+Mu8RlfExLZi9wZuG6myMmZwrU=
 github.com/chelnak/relay-workflow-builder v0.0.0-20220702183134-15c1bce321ca h1:FL1eUqSvY0U/7nA9ogAU1k+g432BNkM7kIAxq41fv2g=
 github.com/chelnak/relay-workflow-builder v0.0.0-20220702183134-15c1bce321ca/go.mod h1:KHbXn+ybHQOfGf7yiLbfG7ouT7MoFvJBQuYNJKysy5U=
+github.com/chelnak/relay-workflow-builder v0.0.0-20220712175429-f77f2668308d h1:VDNPTScGg1OlRah3iCj32USmU37gkYOsw7LvtV/ukCM=
+github.com/chelnak/relay-workflow-builder v0.0.0-20220712175429-f77f2668308d/go.mod h1:KHbXn+ybHQOfGf7yiLbfG7ouT7MoFvJBQuYNJKysy5U=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
