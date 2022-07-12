@@ -2,6 +2,48 @@
 
 This project is a Relay step that is responsible for collecting various metrics from GitHub and injecting them in to BigQuery.
 
+The mertrics are surfaced in our Grafana instance.
+For more information, reach out to the Content and Tooling team.
+
+## Workflow builder
+
+The `workflow` directory contains tools for building workflows in Go.
+
+`workflow.go` contains the workflow definition.
+By default, the application will direct output to `stdout`.
+
+This can easily be piped in to a file as follows:
+
+```bash
+go run . > workflow.yml
+```
+Alternatively, the `Write` method accepts anything that implements `io.Writer`.
+This is perfect for more complex scenarios.
+
+Finally, assuming that you are already authenticated, you can run the following command to
+publish your workflow to your Relay account.
+
+```bash
+relay workflow save my-workflow -f workflow.yml
+```
+
+For convenience, the steps above have been combined in to a `Make` target.
+
+```bash
+make workflow
+```
+
+## Build and release
+
+Builds and releases are handled by goreleaser.
+For convenience when working locally use the provided Makefile.
+
+### Release steps
+* Ensure that you are on the HEAD of the main branch.
+* Create a new release prep branch (e.g maint_release_prep)
+* Create a tag `make tag version=v.0.0.1`. This will also push the tag to the remote.
+* The release workflow is triggered by new tags. It will publish a binary and a Docker image.
+
 ## Working locally
 
 ### Exporter
@@ -52,12 +94,4 @@ docker-compose up
 ```
 Your local stack will be accessible at <http://localhost:9000>
 
-## Build and release
 
-Builds and releases are handled by goreleaser.
-For convenience when working locally use the provided Makefile.
-
-### Release steps
-* Ensure that you are on the HEAD of the main branch.
-* Create a tag `make tag version=v.0.0.1`. This will also push the tag to the remote.
-* The release workflow is triggered by new tags. It will publish a binary and a Docker image.
