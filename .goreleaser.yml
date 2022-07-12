@@ -26,6 +26,7 @@ builds:
 
 dockers:
   - image_templates:
+    - "{{ .ProjectName }}:latest"
     - "ghcr.io/puppetlabs/{{ .ProjectName }}:latest"
     - "ghcr.io/puppetlabs/{{ .ProjectName }}:{{ .Tag }}"
     extra_files:
