@@ -11,3 +11,10 @@ build: lint
 release: lint
 	@WORKINGDIR=$(pwd) goreleaser release --snapshot --rm-dist
 	@docker push ghcr.io/puppetlabs/cat-team-github-metrics:dev
+
+.PHONY: workflow
+workflow:
+	@cd workflow
+	@go run . > workflow.yml
+	@relay workflow save cat-github-metrics -f workflow.yml
+	@cd -
