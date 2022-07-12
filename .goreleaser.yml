@@ -26,8 +26,8 @@ builds:
 
 dockers:
   - image_templates:
-    - "ghcr.io/chelnak/{{ .ProjectName }}:latest"
-    - "ghcr.io/chelnak/{{ .ProjectName }}:{{ .Tag }}"
+    - "ghcr.io/puppetlabs/{{ .ProjectName }}:latest"
+    - "ghcr.io/puppetlabs/{{ .ProjectName }}:{{ .Tag }}"
     extra_files:
       - step.sh
 

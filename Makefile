@@ -10,4 +10,4 @@ build: lint
 
 release: lint
 	@WORKINGDIR=$(pwd) goreleaser release --snapshot --rm-dist
-	@docker push ghcr.io/chelnak/cat-team-github-metrics:dev
+	@docker push ghcr.io/puppetlabs/cat-team-github-metrics:dev
