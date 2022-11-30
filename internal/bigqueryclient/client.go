@@ -1,4 +1,4 @@
-//Package bigqueryclient is responsible for interacting with the BigQuery API.
+// Package bigqueryclient is responsible for interacting with the BigQuery API.
 package bigqueryclient
 
 import (

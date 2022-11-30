@@ -1,4 +1,4 @@
-//Package githubclient is responsible for interacting with the GitHub API
+// Package githubclient is responsible for interacting with the GitHub API
 package githubclient
 
 import (
