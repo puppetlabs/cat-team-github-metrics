@@ -1,0 +1,576 @@
+name: metrics
+
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    
+jobs:
+  device_manager:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: device_manager
+        repo_owner: puppetlabs
+
+  puppetlabs-accounts:
+    needs: device_manager
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-accounts
+        repo_owner: puppetlabs
+
+  puppetlabs-acl:
+    needs: puppetlabs-accounts
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-acl
+        repo_owner: puppetlabs
+
+  puppetlabs-apache:
+    needs: puppetlabs-acl
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-apache
+        repo_owner: puppetlabs
+
+  puppetlabs-apt:
+    needs: puppetlabs-apache
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-apt
+        repo_owner: puppetlabs
+
+  puppetlabs-chocolatey:
+    needs: puppetlabs-apt
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-chocolatey
+        repo_owner: puppetlabs
+
+  puppetlabs-concat:
+    needs: puppetlabs-chocolatey
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-concat
+        repo_owner: puppetlabs
+
+  puppetlabs-docker:
+    needs: puppetlabs-concat
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-docker
+        repo_owner: puppetlabs
+  
+  puppetlabs-exec:
+    needs: puppetlabs-docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-exec
+        repo_owner: puppetlabs
+ 
+  puppetlabs-facter_task:
+    needs: puppetlabs-exec
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-facter_task
+        repo_owner: puppetlabs
+
+  puppetlabs-firewall:
+    needs: puppetlabs-facter_task
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-firewall
+        repo_owner: puppetlabs
+
+
+  puppetlabs-haproxy:
+    needs: puppetlabs-firewall
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-haproxy
+        repo_owner: puppetlabs
+
+  puppetlabs-iis:
+    needs: puppetlabs-haproxy
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-iis
+        repo_owner: puppetlabs
+
+  puppetlabs-inifile:
+    needs: puppetlabs-iis
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-inifile
+        repo_owner: puppetlabs
+
+  puppetlabs-java:
+    needs: puppetlabs-inifile
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-java
+        repo_owner: puppetlabs
+
+  puppetlabs-java_ks:
+    needs: puppetlabs-java
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-java_ks
+        repo_owner: puppetlabs
+
+  puppetlabs-kubernetes:
+    needs: puppetlabs-java_ks
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-kubernetes
+        repo_owner: puppetlabs
+
+  puppetlabs-motd:
+    needs: puppetlabs-kubernetes
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-motd
+        repo_owner: puppetlabs
+
+  puppetlabs-mysql:
+    needs: puppetlabs-motd
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-mysql
+        repo_owner: puppetlabs
+
+  puppetlabs-ntp:
+    needs: puppetlabs-mysql
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-ntp
+        repo_owner: puppetlabs
+
+  puppetlabs-package:
+    needs: puppetlabs-ntp
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-package
+        repo_owner: puppetlabs
+
+  puppetlabs-postgresql:  
+    needs: puppetlabs-package
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-postgresql
+        repo_owner: puppetlabs
+
+  puppetlabs-powershell:
+    needs: puppetlabs-postgresql
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-powershell
+        repo_owner: puppetlabs
+
+
+  puppetlabs-puppet_conf:
+    needs: puppetlabs-powershell
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-puppet_conf
+        repo_owner: puppetlabs
+
+
+  puppetlabs-reboot:
+    needs: puppetlabs-puppet_conf
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-reboot
+        repo_owner: puppetlabs
+
+  puppetlabs-registry:
+    needs: puppetlabs-reboot
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-registry
+        repo_owner: puppetlabs
+
+  puppetlabs-satellite_pe_tools:
+    needs: puppetlabs-registry
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-satellite_pe_tools
+        repo_owner: puppetlabs
+
+
+  puppetlabs-scheduled_task:
+    needs: puppetlabs-satellite_pe_tools
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-scheduled_task
+        repo_owner: puppetlabs
+
+  puppetlabs-service:
+    needs: puppetlabs-scheduled_task
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-service
+        repo_owner: puppetlabs
+
+  puppetlabs-sqlserver:
+    needs: puppetlabs-service
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-sqlserver
+        repo_owner: puppetlabs
+
+  puppetlabs-stdlib:
+    needs: puppetlabs-sqlserver
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-stdlib
+        repo_owner: puppetlabs
+
+  puppetlabs-tomcat:
+    needs: puppetlabs-stdlib
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-tomcat
+        repo_owner: puppetlabs
+
+  puppetlabs-vcsrepo:
+    needs: puppetlabs-tomcat
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-vcsrepo
+        repo_owner: puppetlabs
+
+
+  puppetlabs-wsus_client:
+    needs: puppetlabs-vcsrepo
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: get metrics
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        cobra_command: export
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: puppetlabs-wsus_client
+        repo_owner: puppetlabs
+
+  successful_timestamp:
+    needs: [device_manager,puppetlabs-accounts,puppetlabs-acl,puppetlabs-apache,puppetlabs-apt,puppetlabs-chocolatey,puppetlabs-concat,puppetlabs-docker,
+            puppetlabs-exec,puppetlabs-facter_task,puppetlabs-firewall,puppetlabs-haproxy,puppetlabs-iis,puppetlabs-inifile,puppetlabs-java,
+            puppetlabs-java_ks,puppetlabs-kubernetes,puppetlabs-motd,puppetlabs-mysql,puppetlabs-ntp,puppetlabs-package,puppetlabs-postgresql,
+            puppetlabs-powershell,puppetlabs-puppet_conf,puppetlabs-reboot,puppetlabs-registry,puppetlabs-satellite_pe_tools,puppetlabs-scheduled_task,
+            puppetlabs-service,puppetlabs-sqlserver,puppetlabs-stdlib,puppetlabs-tomcat,puppetlabs-vcsrepo,puppetlabs-wsus_client]
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3 
+    - name: successful timestamp
+      uses: docker://ghcr.io/puppetlabs/cat-team-github-metrics:latest
+      env:
+        bq_project_id: ${{ secrets.BG_PROJECT_ID }}
+        github_token: not_used
+        cobra_command: stamp
+        connection_key: ${{ secrets.GCP_CONNECTION }}
+        repo_name: not_used
+        repo_owner: not_used
