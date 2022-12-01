@@ -1,0 +1,716 @@
+name: metrics
+
+on:
+  workflow_dispatch: #for testing
+  push: #for testing
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  device_manager:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-accounts:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-acl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-apache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-apt:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-chocolatey:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-concat:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-docker:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-exec:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-facter_task:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-firewall:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+
+  puppetlabs-haproxy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-iis:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-inifile:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-java:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-java_ks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-motd:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-mysql:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-ntp:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-package:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-postgresql:  
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-powershell:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+
+  puppetlabs-puppet_conf:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+
+  puppetlabs-reboot:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-registry:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-satellite_pe_tools:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-scheduled_task:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-service:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-sqlserver:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-stdlib:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-tomcat:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-vcsrepo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  puppetlabs-wsus_client:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect Metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{ github.job }} \
+        -e REPO_OWNER=puppetlabs \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  successful_timestamp:
+    needs: [device_manager,puppetlabs-accounts,puppetlabs-acl,puppetlabs-apache,puppetlabs-apt,puppetlabs-chocolatey,puppetlabs-concat,puppetlabs-docker,
+            puppetlabs-exec,puppetlabs-facter_task,puppetlabs-firewall,puppetlabs-haproxy,puppetlabs-iis,puppetlabs-inifile,puppetlabs-java,
+            puppetlabs-java_ks,puppetlabs-kubernetes,puppetlabs-motd,puppetlabs-mysql,puppetlabs-ntp,puppetlabs-package,puppetlabs-postgresql,
+            puppetlabs-powershell,puppetlabs-puppet_conf,puppetlabs-reboot,puppetlabs-registry,puppetlabs-satellite_pe_tools,puppetlabs-scheduled_task,
+            puppetlabs-service,puppetlabs-sqlserver,puppetlabs-stdlib,puppetlabs-tomcat,puppetlabs-vcsrepo,puppetlabs-wsus_client]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Timestamp
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=stamp \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=not_used \
+        -e REPO_OWNER=not_used \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
