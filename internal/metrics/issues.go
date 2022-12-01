@@ -1,5 +1,5 @@
-//Package metrics contains methods that are responsible for mapping responses to metrics
-//that can be sent to BigQuery.
+// Package metrics contains methods that are responsible for mapping responses to metrics
+// that can be sent to BigQuery.
 package metrics
 
 import (
