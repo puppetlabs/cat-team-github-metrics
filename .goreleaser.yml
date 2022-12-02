@@ -1,7 +1,7 @@
 project_name: cat-team-github-metrics
 
 release:
-  name_template: "cat-github-metrics {{.Version}}"
+  name_template: "cat-team-github-metrics {{.Version}}"
   prerelease: auto
 
 before:
