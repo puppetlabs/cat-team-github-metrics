@@ -1,0 +1,66 @@
+name: metrics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  setup_matrix:
+    name: Setup Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.Generate-Matrix.outputs.matrix }}
+    steps:
+    - id: Generate-Matrix
+      name: Retrieve Modules
+      run: |
+        export MODULE_LIST=$(curl https://puppetlabs.github.io/content-and-tooling-team/modules/list.json)
+        echo "::set-output name=matrix::$MODULE_LIST"
+
+  run-collector:
+    name: ${{matrix.module.name}}
+    needs: setup_matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Collect metrics
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=export \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=${{matrix.module.name}} \
+        -e REPO_OWNER=${{matrix.module.owner}} \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
+
+  successful_timestamp:
+    name: Sucessful Timestamp
+    needs: run-collector
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Timestamp
+      run: |
+        docker run \
+        -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
+        -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+        -e COBRA_COMMAND=stamp \
+        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e REPO_NAME=not_used \
+        -e REPO_OWNER=not_used \
+        ghcr.io/puppetlabs/cat-team-github-metrics:latest
