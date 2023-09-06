@@ -1,10 +1,9 @@
 
-FROM relaysh/core:latest
+FROM ubuntu:jammy
 
-RUN apk update && apk add --no-cache -l pcre2
 WORKDIR /app
 
-COPY collector .
+COPY linux-amd64/collector .
 COPY step.sh .
 CMD ["sh", "-c", "./step.sh"]
 
