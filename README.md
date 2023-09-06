@@ -1,35 +1,9 @@
 # cat-team-github-metrics
 
-This project is a Relay step that is responsible for collecting various metrics from GitHub and injecting them in to BigQuery.
+This project is a responsible for collecting various metrics from GitHub and injecting them in to BigQuery.
 
 The mertrics are surfaced in our Grafana instance.
 For more information, reach out to the Content and Tooling team.
-
-## Workflow builder
-
-The `workflow` directory contains tools for building workflows in Go.
-
-`workflow.go` contains the workflow definition.
-By default, the application will direct output to `stdout`.
-
-This can easily be piped in to a file as follows:
-
-```bash
-go run . > workflow.yml
-```
-Alternatively, the `Write` method accepts anything that implements `io.Writer`.
-This is perfect for more complex scenarios.
-
-Finally, assuming that you are already authenticated, you can run the following command to
-publish your workflow to your Relay account.
-
-```bash
-relay workflow save my-workflow -f workflow.yml
-```
-
-The steps above are useful while developing a workflow. However, any changes to the files in
-the `workflow` directory will trigger the `publish-workflow` action and deploy your changes directly
-in to Relay.
 
 ## Build and release
 
@@ -91,5 +65,3 @@ cd grafana
 docker-compose up
 ```
 Your local stack will be accessible at <http://localhost:9000>
-
-

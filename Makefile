@@ -6,17 +6,10 @@ lint:
 	@golangci-lint run ./...
 
 build: lint
-	@WORKINGDIR=$(pwd) goreleaser build --snapshot --rm-dist
+	@WORKINGDIR=$(pwd) goreleaser build --snapshot --clean
 
 snapshot:
-	@WORKINGDIR=$(pwd) goreleaser release --snapshot --rm-dist
+	@WORKINGDIR=$(pwd) goreleaser release --snapshot --clean
 
 release: lint snapshot
 	@docker push ghcr.io/puppetlabs/cat-team-github-metrics:dev
-
-.PHONY: workflow
-workflow:
-	@cd workflow
-	@go run . > workflow.yml
-	@relay workflow save cat-github-metrics -f workflow.yml
-	@cd -

@@ -15,29 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ env.GO_VERSION }}
 
     - name: lint
-      uses: golangci/golangci-lint-action@v2
+      uses: golangci/golangci-lint-action@v3
       with:
         version: latest
 
-    - name: Set up Snyk
-      uses: snyk/actions/setup@master
-    - name: Run Snyk to check for vulnerabilities
-      run: snyk monitor
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_GENERAL_KEY }}
-
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v3
+      uses: goreleaser/goreleaser-action@v4
       with:
         distribution: goreleaser
         version: latest
@@ -47,6 +40,6 @@ jobs:
         WORKINGDIR: ${{ env.GITHUB_WORKSPACE }}
 
     - name: Trivy Scan
-      uses: docker://docker.io/aquasec/trivy:0.28.0
+      uses: docker://docker.io/aquasec/trivy:0.45.0
       with:
         args: 'i --vuln-type os --ignore-unfixed -s CRITICAL ghcr.io/puppetlabs/cat-team-github-metrics:latest'
