@@ -34,13 +34,15 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Collect metrics
       run: |
+        echo '${{ secrets.GCP_CONNECTION }}' > /tmp/keys/creds.json
         docker run \
         -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
         -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
         -e COBRA_COMMAND=export \
-        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/creds.json \
         -e REPO_NAME=${{matrix.tool.name}} \
         -e REPO_OWNER=${{matrix.tool.owner}} \
+        -v /tmp/keys/creds.json:/tmp/keys/creds.json \
         ghcr.io/puppetlabs/cat-team-github-metrics:latest
 
   successful_timestamp:
@@ -56,11 +58,13 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Timestamp
       run: |
+        echo '${{ secrets.GCP_CONNECTION }}' > /tmp/keys/creds.json
         docker run \
         -e BQ_PROJECT_ID=${{ secrets.BQ_PROJECT_ID }} \
         -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
         -e COBRA_COMMAND=stamp \
-        -e 'CONNECTION_KEY=${{ secrets.GCP_CONNECTION }}' \
+        -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/creds.json \
         -e REPO_NAME=not_used \
         -e REPO_OWNER=not_used \
+        -v /tmp/keys/creds.json:/tmp/keys/creds.json \
         ghcr.io/puppetlabs/cat-team-github-metrics:latest
