@@ -8,6 +8,7 @@ package configuration
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -26,6 +27,20 @@ const (
 	repoNameKey             = "REPO_NAME"
 	repoOwnerKey            = "REPO_OWNER"
 )
+
+var configMap = map[string]string{
+	"GitHubToken":          "GITHUB_TOKEN",
+	"BigQueryProjectID":    "BIG_QUERY_PROJECT_ID",
+	"BigQueryDatasetName":  "BIG_QUERY_DATASET_NAME",
+	"IssuesTable":          "ISSUES_TABLE",
+	"IssuesAggTable":       "ISSUES_AGG_TABLE",
+	"PullRequestsTable":    "PULL_REQUESTS_TABLE",
+	"PullRequestsAggTable": "PULL_REQUESTS_AGG_TABLE",
+	"ReleasesTable":        "RELEASES_TABLE",
+	"LastRunTable":         "LAST_RUN_TABLE",
+	"RepoName":             "REPO_NAME",
+	"RepoOwner":            "REPO_OWNER",
+}
 
 var Config configuration
 
@@ -76,48 +91,11 @@ func InitConfig() error {
 func validate(config configuration) error {
 	var missingConfig []string
 
-	if config.GitHubToken == "" {
-		missingConfig = append(missingConfig, githubTokenKey)
-	}
-
-	if config.BigQueryProjectID == "" {
-		missingConfig = append(missingConfig, bigQueryProjectIDKey)
-	}
-
-	if config.BigQueryDatasetName == "" {
-		missingConfig = append(missingConfig, bigQueryDatasetNameKey)
-	}
-
-	if config.IssuesTable == "" {
-		missingConfig = append(missingConfig, issuesTableKey)
-	}
-
-	if config.IssuesAggTable == "" {
-		missingConfig = append(missingConfig, issuesAggTableKey)
-	}
-
-	if config.PullRequestsTable == "" {
-		missingConfig = append(missingConfig, pullRequestsTableKey)
-	}
-
-	if config.PullRequestsAggTable == "" {
-		missingConfig = append(missingConfig, pullRequestsAggTableKey)
-	}
-
-	if config.ReleasesTable == "" {
-		missingConfig = append(missingConfig, releasesTableKey)
-	}
-
-	if config.LastRunTable == "" {
-		missingConfig = append(missingConfig, lastRunTableKey)
-	}
-
-	if config.RepoName == "" {
-		missingConfig = append(missingConfig, repoNameKey)
-	}
-
-	if config.RepoOwner == "" {
-		missingConfig = append(missingConfig, repoOwnerKey)
+	v := reflect.ValueOf(config)
+	for i := 0; i < v.NumField(); i++ {
+		if v.Field(i).String() == "" {
+			missingConfig = append(missingConfig, configMap[v.Type().Field(i).Name])
+		}
 	}
 
 	if len(missingConfig) > 0 {
