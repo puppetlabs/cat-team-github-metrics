@@ -1,8 +1,11 @@
 package githubclient
 
 import (
+	"os"
 	"time"
 
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/net/context"
 )
@@ -28,6 +31,7 @@ var PRQuery struct {
 				State     string
 				CreatedAt time.Time
 				UpdatedAt time.Time
+				IsDraft   bool
 				Labels    struct {
 					Nodes []struct {
 						Name string
@@ -52,7 +56,7 @@ func (client *githubClient) GetPullRequests(ctx context.Context, owner string, n
 		"name":   githubv4.String(name),
 		"cursor": (*githubv4.String)(nil),
 	}
-
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339})
 	var metrics []PullRequest
 	for {
 		err := client.v4.Query(ctx, &PRQuery, variables)
@@ -64,6 +68,11 @@ func (client *githubClient) GetPullRequests(ctx context.Context, owner string, n
 			var labels []string
 			for _, label := range node.Labels.Nodes {
 				labels = append(labels, label.Name)
+			}
+
+			if node.IsDraft && node.State == "OPEN" {
+				log.Info().Msgf("Skipping draft PR %s/%d", name, node.Number)
+				continue
 			}
 
 			metrics = append(metrics, PullRequest{
