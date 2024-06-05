@@ -9,7 +9,7 @@ require (
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.12.0
 	golang.org/x/net v0.17.0
-	golang.org/x/oauth2 v0.0.0-20220622183110-fd043fe589d2
+	golang.org/x/oauth2 v0.21.0
 )
 
 require (
@@ -19,7 +19,7 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/google/go-cmp v0.5.8 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.1.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
