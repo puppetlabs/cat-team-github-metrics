@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	cloud.google.com/go/bigquery v1.50.0
-	github.com/rs/zerolog v1.33.0
+	github.com/rs/zerolog v1.34.0
 	github.com/shurcooL/githubv4 v0.0.0-20220520033151-0b4e3294ff00
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.12.0
