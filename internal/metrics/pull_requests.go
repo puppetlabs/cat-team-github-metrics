@@ -42,12 +42,14 @@ func GetPullRequestMetrics(org string, repo string) ([]PullRequestMetric, error)
 	if err != nil {
 		return nil, err
 	}
+	return getPullRequestMetrics(client, org, repo)
+}
 
+func getPullRequestMetrics(client githubclient.GitHubClient, org, repo string) ([]PullRequestMetric, error) {
 	metrics, err := client.GetPullRequests(context.Background(), org, repo)
 	if err != nil {
 		return nil, err
 	}
-
 	return mapPullRequestMetrics(metrics), nil
 }
 

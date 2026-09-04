@@ -32,12 +32,14 @@ func GetReleaseMetrics(org string, repo string) ([]ReleaseMetric, error) {
 	if err != nil {
 		return nil, err
 	}
+	return getReleaseMetrics(client, org, repo)
+}
 
+func getReleaseMetrics(client githubclient.GitHubClient, org, repo string) ([]ReleaseMetric, error) {
 	metrics, err := client.GetLatestRelease(context.Background(), org, repo)
 	if err != nil {
 		return nil, err
 	}
-
 	return mapReleaseMetrics(metrics), nil
 }
 
