@@ -43,7 +43,7 @@ func (m *mockGitHubClient) GetLatestRelease(_ context.Context, _, _ string) ([]g
 
 var (
 	testTime = time.Date(2024, 1, 1, 12, 0, 0, 0, time.UTC)
-	apiErr   = errors.New("api error")
+	errAPI   = errors.New("api error")
 )
 
 func assertNoError(t *testing.T, err error) {
@@ -412,7 +412,7 @@ func TestGetIssueMetrics_Success(t *testing.T) {
 }
 
 func TestGetIssueMetrics_Error(t *testing.T) {
-	client := &mockGitHubClient{err: apiErr}
+	client := &mockGitHubClient{err: errAPI}
 	_, err := getIssueMetrics(client, "org", "repo")
 	assertError(t, err)
 }
@@ -433,7 +433,7 @@ func TestGetIssueAggregatedMetrics_Success(t *testing.T) {
 }
 
 func TestGetIssueAggregatedMetrics_Error(t *testing.T) {
-	client := &mockGitHubClient{err: apiErr}
+	client := &mockGitHubClient{err: errAPI}
 	_, err := getIssueAggregatedMetrics(client, "org", "repo")
 	assertError(t, err)
 }
@@ -456,7 +456,7 @@ func TestGetPullRequestMetrics_Success(t *testing.T) {
 }
 
 func TestGetPullRequestMetrics_Error(t *testing.T) {
-	client := &mockGitHubClient{err: apiErr}
+	client := &mockGitHubClient{err: errAPI}
 	_, err := getPullRequestMetrics(client, "org", "repo")
 	assertError(t, err)
 }
@@ -474,7 +474,7 @@ func TestGetPullRequestAggregatedMetrics_Success(t *testing.T) {
 }
 
 func TestGetPullRequestAggregatedMetrics_Error(t *testing.T) {
-	client := &mockGitHubClient{err: apiErr}
+	client := &mockGitHubClient{err: errAPI}
 	_, err := getPullRequestAggregatedMetrics(client, "org", "repo")
 	assertError(t, err)
 }
@@ -497,7 +497,7 @@ func TestGetReleaseMetrics_Success(t *testing.T) {
 }
 
 func TestGetReleaseMetrics_Error(t *testing.T) {
-	client := &mockGitHubClient{err: apiErr}
+	client := &mockGitHubClient{err: errAPI}
 	_, err := getReleaseMetrics(client, "org", "repo")
 	assertError(t, err)
 }

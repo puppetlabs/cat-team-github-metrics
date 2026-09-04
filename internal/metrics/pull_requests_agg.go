@@ -1,4 +1,4 @@
-package metrics
+package metrics //nolint:dupl
 
 import (
 	"context"
