@@ -42,12 +42,14 @@ func GetIssueMetrics(org string, repo string) ([]IssueMetric, error) {
 	if err != nil {
 		return nil, err
 	}
+	return getIssueMetrics(client, org, repo)
+}
 
+func getIssueMetrics(client githubclient.GitHubClient, org, repo string) ([]IssueMetric, error) {
 	metrics, err := client.GetIssues(context.Background(), org, repo)
 	if err != nil {
 		return nil, err
 	}
-
 	return mapIssueMetrics(metrics), nil
 }
 

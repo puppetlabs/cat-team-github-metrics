@@ -27,17 +27,17 @@ func GetPullRequestAggregatedMetrics(org string, repo string) (PullRequestAggreg
 	if err != nil {
 		return PullRequestAggregatedMetric{}, err
 	}
+	return getPullRequestAggregatedMetrics(client, org, repo)
+}
 
+func getPullRequestAggregatedMetrics(client githubclient.GitHubClient, org, repo string) (PullRequestAggregatedMetric, error) {
 	metrics, err := client.GetOpenPullRequestCount(context.Background(), org, repo)
 	if err != nil {
 		return PullRequestAggregatedMetric{}, err
 	}
-
-	pullRequestMetric := PullRequestAggregatedMetric{
+	return PullRequestAggregatedMetric{
 		Repository:     metrics.Repository,
 		Count:          metrics.Count,
 		CollectionTime: time.Now(),
-	}
-
-	return pullRequestMetric, nil
+	}, nil
 }

@@ -27,17 +27,17 @@ func GetIssueAggregatedMetrics(org string, repo string) (IssueAggregatedMetric, 
 	if err != nil {
 		return IssueAggregatedMetric{}, err
 	}
+	return getIssueAggregatedMetrics(client, org, repo)
+}
 
+func getIssueAggregatedMetrics(client githubclient.GitHubClient, org, repo string) (IssueAggregatedMetric, error) {
 	metrics, err := client.GetOpenIssueCount(context.Background(), org, repo)
 	if err != nil {
 		return IssueAggregatedMetric{}, err
 	}
-
-	issueMetric := IssueAggregatedMetric{
+	return IssueAggregatedMetric{
 		Repository:     metrics.Repository,
 		Count:          metrics.Count,
 		CollectionTime: time.Now(),
-	}
-
-	return issueMetric, nil
+	}, nil
 }
